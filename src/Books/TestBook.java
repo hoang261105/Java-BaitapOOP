@@ -33,7 +33,7 @@ public class TestBook {
                     addBook(sc);
                     break;
                 case 3:
-                    calculateInterest(sc);
+                    calculateInterest();
                     break;
                 case 4:
                     updateBook(sc);
@@ -78,7 +78,7 @@ public class TestBook {
         System.out.println("Thêm sách thành công");
     }
 
-    public static void calculateInterest(Scanner sc) {
+    public static void calculateInterest() {
         for (int i = 0; i < currentIndex; i++) {
             books[i].setInterest(books[i].callInterest());
         }
@@ -200,14 +200,19 @@ public class TestBook {
         if (sc.hasNextLine()) sc.nextLine();
         String author = sc.nextLine();
 
+        boolean isFound = false;
+
         for(int i = 0; i < currentIndex; i++) {
             if(books[i].getAuthor().equals(author)) {
                 books[i].displayBook();
                 System.out.println("--------------------------------------");
-                return;
+                isFound = true;
             }
         }
-        System.out.println("Không tìm thấy tác giả");
+
+        if(!isFound) {
+            System.out.println("Không tìm thấy tác giả");
+        }
     }
 
     public static void searchBookByPrice(Scanner sc) {
@@ -216,14 +221,18 @@ public class TestBook {
         double priceMin = sc.nextDouble();
         double priceMax = sc.nextDouble();
 
+        boolean isFound = false;
+
         for(int i = 0; i < currentIndex; i++) {
             if(books[i].getExportPrice() >= priceMin && books[i].getExportPrice() <= priceMax) {
                 books[i].displayBook();
                 System.out.println("--------------------------------------");
-                return;
+                isFound = true;
             }
         }
-        System.out.println("Không có sách nằm trong khoảng giá này!");
+        if(!isFound) {
+            System.out.println("Không có sách nằm trong khoảng giá này!");
+        }
     }
 
     public static void statisticAuthor(Scanner sc) {
