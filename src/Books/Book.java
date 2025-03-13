@@ -12,6 +12,9 @@ public class Book {
     private double interest;
     private int year;
 
+    String regexBookId = "^B.{4}$";
+    String regexBookName = "^.{6,100}$";
+
     public Book() {
     }
 
@@ -39,6 +42,12 @@ public class Book {
     }
 
     public void setBookName(String bookName) {
+        Scanner sc = new Scanner(System.in);
+        while (!bookName.matches(regexBookName)) {
+            System.out.println("Tên sách không hợp lệ. Vui lòng nhập lại");
+            bookName = sc.nextLine();
+        }
+
         this.bookName = bookName;
     }
 
@@ -47,6 +56,12 @@ public class Book {
     }
 
     public void setImportPrice(double importPrice) {
+        Scanner sc = new Scanner(System.in);
+        while (importPrice < 0) {
+            System.out.println("Giá nhập phải lớn hơn 0. Vui lòng nhập lại.");
+            importPrice = sc.nextDouble();
+        }
+
         this.importPrice = importPrice;
     }
 
@@ -55,6 +70,12 @@ public class Book {
     }
 
     public void setExportPrice(double exportPrice) {
+        Scanner sc = new Scanner(System.in);
+        while (exportPrice < 0 || exportPrice < importPrice * 1.1) {
+            System.out.println("Giá xuất phải lớn hơn 0. Vui lòng nhập lại.");
+            exportPrice = sc.nextDouble();
+        }
+
         this.exportPrice = exportPrice;
     }
 
@@ -63,6 +84,12 @@ public class Book {
     }
 
     public void setAuthor(String author) {
+        Scanner sc = new Scanner(System.in);
+        while (author.isEmpty()) {
+            System.out.println("Tên tác giả không được để trống. Vui lòng nhập lại.");
+            author = sc.nextLine();
+        }
+
         this.author = author;
     }
 
@@ -71,6 +98,12 @@ public class Book {
     }
 
     public void setTitle(String title) {
+        Scanner sc = new Scanner(System.in);
+        while (title.isEmpty()) {
+            System.out.println("Tiêu đề không được để trống. Vui lòng nhập lại: ");
+            title = sc.nextLine();  // Cho phép nhập lại nếu bị rỗng
+        }
+
         this.title = title;
     }
 
@@ -87,6 +120,11 @@ public class Book {
     }
 
     public void setYear(int year) {
+        Scanner sc = new Scanner(System.in);
+        while (year < 1970){
+            System.out.println("Năm xuất bản phải từ 1970 trở đi. Vui lòng nhập lại.");
+            year = sc.nextInt();
+        }
         this.year = year;
     }
 
@@ -94,8 +132,6 @@ public class Book {
         while(true){
             System.out.println("Nhập id của sách: ");
             this.bookId = sc.nextLine();
-
-            String regexBookId = "^B.{4}$";
 
             if(this.bookId.matches(regexBookId)){
                 return bookId;
@@ -108,8 +144,6 @@ public class Book {
         while(true){
             System.out.println("Nhập tên sách:");
             this.bookName = sc.nextLine();
-
-            String regexBookName = "^.{6,100}$";
 
             if(this.bookName.matches(regexBookName)){
                 return bookName;
